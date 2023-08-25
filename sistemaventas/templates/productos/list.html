@@ -1,0 +1,95 @@
+{%extends 'base.html'%}
+
+{% block content %}
+
+  
+<div class="container">
+    <h6> Todos tus productos están aqui<h6/>
+    <div class="row">
+        <div class="col-md-6"> <!-- Column for input -->
+            <input class="form-control" placeholder="Ingresa tu búsqueda" />
+        </div>
+        <div class="col-md-6"> <!-- Column for button -->
+          <button type="button" class="btn btn-info float-md-end" onclick="modal_nuevo('{% url 'page-nuevo-producto' %}')"> <i class="fas fa-plus"></i> Nuevo</button>
+        </div>
+    </div>
+</div>
+ <div class="container"> 
+    <div class="card">
+    
+        <div class="table-responsive">
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nombre</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Costo</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Descripcion</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Categoría</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
+    
+              </tr>
+            </thead>
+            <tbody>
+                {% for item in productos %}
+              <tr>
+                <td>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs text-center">{{item.id}}</h6>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs ">{{item.nombre}}</h6>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs text-center"> $ {{item.precio}}</h6>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs">{{item.descripcion}}</h6>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs text-center">{{item.categoria}}</h6>
+                    </div>
+                </td>
+    
+                <td>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-xs text-center"><a>Eliminar</a></h6>
+                    </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+ </div>
+
+</div>
+
+
+<div class="modal fade" id="nuevoModal" role="dialog">
+
+</div>
+
+{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+    var $ = jQuery.noConflict();
+    function modal_nuevo(url){
+        $('#nuevoModal').load(url,function(){
+            $(this).modal('show');
+        });
+    }
+
+</script>
+{% endblock extrajs %}
+
